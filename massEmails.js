@@ -24,7 +24,7 @@ emails.forEach(async (email) => {
 	try {
 		const ans = await getMail(email, senders, options);
 		console.log(`${ans.email} (${ans.date}):`);
-		console.log(obj.data);
+		console.log(ans.data);
 	} catch (err) {
 		console.error(err);
 	}
