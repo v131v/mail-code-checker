@@ -16,6 +16,7 @@ const HELP = [
 	'  --senders=[sender1@email.com, sender2@email.org...] - set senders of mails which will checked on codes/links',
 	'  --code=valueRegexp - change regexp of mail codes (format like new RegExp(" valueRegexp ") )',
 	'  --url=valueRegexp - change regexp of mail links (format like new RegExp(" valueRegexp ") )',
+	'  --delay=valueSeconds - set delay between email checking',
 	'\nif you set --url it turns on flag -u and turns off flag -c, same behavior with --code'
 ].join('\n');
 
