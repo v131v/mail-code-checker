@@ -29,7 +29,7 @@ const termArgs = require('./terminalArgs.js');
 	const options = termArgs(proc.argv, {
 		code: true,
 		url: false,
-		senders: SENDERS.bliz,
+		senders: termArgs.SENDERS.bliz,
 		type: 'get',
 		log: true,
 	});
