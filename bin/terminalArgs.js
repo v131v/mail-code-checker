@@ -29,7 +29,9 @@ const FLAGS = {
 	'bliz': {senders:SENDERS.bliz},
 	'epic': {senders:SENDERS.epic},
 	'g': {type:'get'},
-	'd': {type:'del'}
+	'd': {type:'del'},
+	'h': {type:'help'},
+	'help': {type:'help'},
 };
 
 const VARS = {
