@@ -14,12 +14,12 @@ const FLAGS = {
 	},
 	'u': (options) => {
 		options.url = !options.url;
-		options.code = !options.code;
+		options.code = options.url;
 		return options;
 	},
 	'c': (options) => {
 		options.url = !options.url;
-		options.code = !options.code;
+		options.code = options.url;
 		return options;
 	},
 	'bliz': (options) => {
@@ -49,11 +49,12 @@ const FLAGS = {
 };
 
 const VARS = {
-	'code': (url) => new RegExp(url, 'g'),
-	'url': (url) => new RegExp(url, 'g'),
+	'code': (url) => new RegExp(url, ''),
+	'url': (url) => new RegExp(url, ''),
 	'auth': (email) => Array.from(email.match(/(.+@[^:]+):(.+)/)).slice(1),
 	'senders': (emails) => emails.replace(/[\[\]\s]/g, '').split(','),
 	'emails': (emailsFile) => emailsFile,
+	'delay': (delay) => delay,
 };
 
 module.exports = function(argv, defaultOptions = {}) {
