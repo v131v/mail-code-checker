@@ -1,38 +1,51 @@
-const HELP = [
-	'npx mail-code-checker [-flag] [--argument=value]',
-	'finds last mail with codes(like 3956, UOFHTJ, 6YH3H9, etc)/links and show it',
-	'search don\'t work with codes and links at the same time - only links or only codes',
-	'\nFLAGS:',
-	'  -a - find mails in all boxes (default INBOX, JUNK/SPAM, TRASH/DELETED',
-	'  -l - disable console logs',
-	'  -u - order to find links in mails by default template (default off)',
-	'  -c - order to find codes in mails by default template (default on)',
-	'  -g - find mails from [senders] (default on)',
-	'  -d - delete mails from [senders] (default off)',
-	'\nVARS:',
-	'  --auth=email@domain:password - set email which will used to codes/links search',
-	'  --senders=[sender1@email.com, sender2@email.org...] - set senders of mails which will checked on codes/links',
-	'  --code=valueRegexp - change regexp of mail codes (format like new RegExp(" valueRegexp ") )',
-	'  --url=valueRegexp - change regexp of mail links (format like new RegExp(" valueRegexp ") )',
-	'\nif you set --url it turns on flag -u and turns off flag -c, same behavior with --code'
-].join('\n');
-
 const SENDERS = {
 	epic: ['help@accts.epicgames.com', 'help@epicgames.com'],
 	bliz: ['noreply@battle.net'],
 };
 
 const FLAGS = {
-	'a': {checkAllBoxes:true},
-	'l': {log:false},
-	'u': {url:true,code:false},
-	'c': {code:true,url:false},
-	'bliz': {senders:SENDERS.bliz},
-	'epic': {senders:SENDERS.epic},
-	'g': {type:'get'},
-	'd': {type:'del'},
-	'h': {type:'help'},
-	'help': {type:'help'},
+	'a': (options) => {
+		options.checkAllBoxes = !options.checkAllBoxes;
+		return options;
+	},
+	'l': (options) => {
+		options.log = !options.log;
+		return options;
+	},
+	'u': (options) => {
+		options.url = !options.url;
+		options.code = !options.code;
+		return options;
+	},
+	'c': (options) => {
+		options.url = !options.url;
+		options.code = !options.code;
+		return options;
+	},
+	'bliz': (options) => {
+		options.senders = SENDERS.bliz;
+		return options;
+	},
+	'epic': (options) => {
+		options.senders = SENDERS.epic;
+		return options;
+	},
+	'g': (options) => {
+		options.type = 'get';
+		return options;
+	},
+	'd': (options) => {
+		options.type = 'del';
+		return options;
+	},
+	'h': (options) => {
+		options.type = 'help';
+		return options;
+	},
+	'help': (options) => {
+		options.type = 'help';
+		return options;
+	},
 };
 
 const VARS = {
@@ -40,14 +53,17 @@ const VARS = {
 	'url': (url) => new RegExp(url, 'g'),
 	'auth': (email) => Array.from(email.match(/(.+@[^:]+):(.+)/)).slice(1),
 	'senders': (emails) => emails.replace(/[\[\]\s]/g, '').split(','),
+	'emails': (emailsFile) => emailsFile,
 };
 
-module.exports = function(argv) {
+module.exports = function(argv, defaultOptions = {}) {
 	
 	let options = {
+		log: true,
 		code: true,
-		senders: SENDERS.bliz,
-		type: 'get',
+		url: false,
+		checkAllBoxes: false,
+		...defaultOptions,
 	};
 	
 	const flagsRegexp = /-([a-z]+)/;
@@ -55,7 +71,11 @@ module.exports = function(argv) {
 
 	if (flags) {
 		flags = flags.match(flagsRegexp)[1].split('');
-		options = flags.reduce((sum, option) => Object.assign(sum, FLAGS[option]), options);
+		flags.forEach((option) => {
+
+			options = FLAGS[option](options);
+
+		});
 	}
 
 	const vars = argv
@@ -73,4 +93,3 @@ module.exports = function(argv) {
 module.exports.SENDERS = SENDERS;
 module.exports.FLAGS = FLAGS;
 module.exports.VARS = VARS;
-module.exports.HELP = HELP;
