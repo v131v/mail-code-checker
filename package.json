@@ -3,7 +3,10 @@
   "version": "1.1.0",
   "description": "",
   "main": "./lib/index.js",
-  "bin": "./bin/oneEmail.js",
+  "bin": {
+    "mail": "./bin/oneEmail.js",
+    "mails": "./bin/manyEmails.js"
+  },
   "scripts": {
     "one-email": "node ./bin/oneEmail.js",
     "mass-email": "node ./bin/massEmail.js",
