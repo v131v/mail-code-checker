@@ -1,20 +1,21 @@
 const HELP = [
 	'npx mail-code-checker [-flag] [--argument=value]',
-	'search last mail with codes(like 3956, UOFHTJ, 6YH3H9, etc)/links and show it',
+	'finds last mail with codes(like 3956, UOFHTJ, 6YH3H9, etc)/links and show it',
 	'search don\'t work with codes and links at the same time - only links or only codes',
 	'\nFLAGS:',
-	'\t-a - find mails in all boxes (default INBOX, JUNK/SPAM, TRASH/DELETED',
-	'\t-l - disable console logs',
-	'\t-u - order to find links in mails by default template (default off)',
-	'\t-c - order to find codes in mails by default template (default on)',
-	'-g - find mails from [senders] (default on)',
-	'-d - delete mails from [senders] (default off)',
+	'  -a - find mails in all boxes (default INBOX, JUNK/SPAM, TRASH/DELETED',
+	'  -l - disable console logs',
+	'  -u - order to find links in mails by default template (default off)',
+	'  -c - order to find codes in mails by default template (default on)',
+	'  -g - find mails from [senders] (default on)',
+	'  -d - delete mails from [senders] (default off)',
 	'\nVARS:',
-	'\t--auth=email@domain:password - set email which will used to codes/links search',
-	'\t--senders=[sender1@email.com, sender2@email.org...] - set senders of mails which will checked on codes/links',
-	'\t--code=valueRegexp - change regexp of mail codes (format like new RegExp(" valueRegexp ") )',
-	'\t--url=valueRegexp - change regexp of mail links (format like new RegExp(" valueRegexp ") )',
-];
+	'  --auth=email@domain:password - set email which will used to codes/links search',
+	'  --senders=[sender1@email.com, sender2@email.org...] - set senders of mails which will checked on codes/links',
+	'  --code=valueRegexp - change regexp of mail codes (format like new RegExp(" valueRegexp ") )',
+	'  --url=valueRegexp - change regexp of mail links (format like new RegExp(" valueRegexp ") )',
+	'\nif you set --url it turns on flag -u and turns off flag -c, same behavior with --code'
+].join('\n');
 
 const SENDERS = {
 	epic: ['help@accts.epicgames.com', 'help@epicgames.com'],
@@ -45,7 +46,7 @@ module.exports = function(argv) {
 	
 	let options = {
 		code: true,
-		senders: termArgs.SENDERS.bliz,
+		senders: SENDERS.bliz,
 		type: 'get',
 	};
 	
@@ -72,3 +73,4 @@ module.exports = function(argv) {
 module.exports.SENDERS = SENDERS;
 module.exports.FLAGS = FLAGS;
 module.exports.VARS = VARS;
+module.exports.HELP = HELP;
