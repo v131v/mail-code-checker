@@ -1,9 +1,12 @@
 {
-  "name": "mail-checker",
-  "version": "1.0.0",
+  "name": "mail-code-checker",
+  "version": "1.1.0",
   "description": "",
   "main": "./lib/index.js",
+  "bin": "./bin/oneEmail.js",
   "scripts": {
+    "one-email": "node ./bin/oneEmail.js",
+    "mass-email": "node ./bin/massEmail.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "v131v",
