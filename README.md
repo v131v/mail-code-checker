@@ -6,6 +6,8 @@ Check email for codes(like `3956`, `UOFHTJ`, `6YH3H9`, etc)/links in mails. Work
 
 ## How to use
 
+---
+
 ### CLI
 
 * With 1 email
@@ -27,7 +29,7 @@ or
 npx <command> -help
 ```
 
-## Programmaticly
+### Programmaticly
 
 Installation like npm package
 ```
@@ -35,7 +37,7 @@ npm install https://github.com/v131v/mail-code-checker.git
 ```
 
 Using in code
-```
+```javascript
 const MailChecker = require('mail-code-checker');
 
 const auth = ['email@domain.com', 'password'];
@@ -60,12 +62,14 @@ MailChecker.getMail(auth, senders)
 ---
 
 ### getMail(auth, senders, options)
-Find last mail with codes/links
+Find last mail with codes/links.
+Arguments:
 
 * `auth` - `Array<String>` fisrt element email address, second - password
 * `senders` - `Array<String>` emails used in field `From` of mails
-* `options` - `Object` search options:
+* `options` - `Object` search options
 
+Search options:
 - `code` - `Boolean`/`RegExp` if true use default code regexp `[\s\n\t:]([A-Z\d]{4,6})[\s\n\t\.]`. Enable codes search, turns off `url`
 - `url` - `Boolean`/`RegExp` if true use default url regexp `https?:\/\/[^<\s]+/`. Enable links search, turns off `code`
 - `log` - `Boolean` enable/disable console logs
@@ -73,15 +77,16 @@ Find last mail with codes/links
 - `delay` - `Number` time of sleeping between email checking
 
 Returns `Promise` that resolve `Object`:
-- `email` - `String` checked email, same as `auth`
-- `date` - `Date` date of mail
-- `data` - `Array<Array>` array of matches with code/link regexp 
+* `email` - `String` checked email, same as `auth`
+* `date` - `Date` date of mail
+* `data` - `Array<Array>` array of matches with code/link regexp 
 
 ### clearEmail(auth, senders, options)
 Delete all mails from every sender
 
 * `auth` - `Array` fisrt element email address, second - password
 * `senders` - `Array` emails used in field `From` of mails
-* `options` - `Object` search options:
+* `options` - `Object` search options
 
+Search options:
 - `log` - `Boolean` enable/disable console logs
