@@ -62,8 +62,8 @@ MailChecker.getMail(auth, senders)
 ### getMail(auth, senders, options)
 Find last mail with codes/links
 
-* `auth` - `Array` fisrt element email address, second - password
-* `senders` - `Array` emails used in field `From` of mails
+* `auth` - `Array<String>` fisrt element email address, second - password
+* `senders` - `Array<String>` emails used in field `From` of mails
 * `options` - `Object` search options:
 
 - `code` - `Boolean`/`RegExp` if true use default code regexp `[\s\n\t:]([A-Z\d]{4,6})[\s\n\t\.]`. Enable codes search, turns off `url`
@@ -72,8 +72,13 @@ Find last mail with codes/links
 - `checkAllBoxes` - `Boolean` if true enable search in all email boxes (default INBOX, JUNK/SPAM, TRASH/DELETED)
 - `delay` - `Number` time of sleeping between email checking
 
+Returns `Promise` that resolve `Object`:
+- `email` - `String` checked email, same as `auth`
+- `date` - `Date` date of mail
+- `data` - `Array<Array>` array of matches with code/link regexp 
+
 ### clearEmail(auth, senders, options)
-Delete all mails from `senders`
+Delete all mails from every sender
 
 * `auth` - `Array` fisrt element email address, second - password
 * `senders` - `Array` emails used in field `From` of mails
